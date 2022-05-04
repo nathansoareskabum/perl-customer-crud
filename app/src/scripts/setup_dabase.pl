@@ -25,3 +25,7 @@ $db->query("CREATE TABLE IF NOT EXISTS `customers` (
 $db->query("INSERT INTO `customers` (`name`, `birth_date`, `cpf`, `rg`, `phone`) VALUES (
     'Nathan Soares', '1995-09-11', '00000000000', '000000000', '18981496666'
 );");
+
+$db->query("INSERT INTO `customers` (`name`, `birth_date`, `cpf`, `rg`, `phone`) VALUES (
+    'Nathan Oliveira', '1995-08-10', '00000000000', '000000000', '18981497777'
+);");

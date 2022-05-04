@@ -9,17 +9,17 @@ BEGIN {
     our %ROUTES = (
         'POST' => {
             '/auth/login' => {
-                'module'=> 'Routes::Auth',
+                'module'=> 'Controllers::AuthController',
                 'method' => 'login'
             },
             '/customers' => {
-                'module'=> 'Routes::Customers',
+                'module'=> 'Controllers::CustomersController',
                 'method' => 'store'
             }
         },
         'GET' => {
             '/customers' => {
-                'module'=> 'Routes::Customers',
+                'module'=> 'Controllers::CustomersController',
                 'method' => 'list'
             }
         }

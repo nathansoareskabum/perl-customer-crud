@@ -1,4 +1,4 @@
-package Routes::Auth;
+package Controllers::AuthController;
 
 use Moose;
 
