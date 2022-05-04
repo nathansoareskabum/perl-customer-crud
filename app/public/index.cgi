@@ -20,9 +20,9 @@ BEGIN {
 
 use Utils::Response;
 
-our $cgi = CGI->new();
-our $json = JSON->new();
-our $response = Utils::Response->new(cgi => $cgi, json => $json);
+my $cgi = CGI->new();
+my $json = JSON->new();
+my $response = Utils::Response->new(cgi => $cgi, json => $json);
 
 eval {
     my $output = {
@@ -45,11 +45,11 @@ eval {
         $controller->$method();
     }
     
-    $response->json($output->{code}, $output->{message});
+    $response->to_json($output->{code}, $output->{message});
 } or do {
     my $error = $@ || 'Unknown failure';
 
-    $response->json(500, $error);
+    $response->to_json(500, $error);
 };
 
 __END__

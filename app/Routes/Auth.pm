@@ -1,20 +1,16 @@
 package Routes::Auth;
 
-sub new {
-    my ($class, %args) = @_;
-    
-    my $self = \%args;
+use Moose;
 
-    bless $self, $class;
-
-    return $self;
-
-}
+has 'response' => (
+    is => 'rw', 
+    required => 1
+);
 
 sub login {
     my $self = shift;
 
-    $self->{response}->json(301, "Login");
+    $self->response->to_json(301, "Login");
 }
 
 1;

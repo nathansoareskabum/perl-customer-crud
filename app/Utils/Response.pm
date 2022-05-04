@@ -1,30 +1,32 @@
 package Utils::Response;
 
-sub new {
-    my ($class, %args) = @_;
-    
-    my $self = \%args;
+use Moose;
 
-    bless $self, $class;
+has 'cgi' => (
+    is => 'rw', 
+    required => 1
+);
 
-    return $self;
+has 'json' => (
+    is => 'rw', 
+    required => 1
+);
 
-}
-
-sub json {
+sub to_json {
     my $self = shift;
 
     my($code, $message) = @_;
 
-    print $self->{cgi}->header(
+    print $self->cgi->header(
         -type => 'application/json',
         -status => $code
     );
 
-    print $self->{json}->encode({
+    print $self->json->encode({
         code => $code,
         message => $message
     }); 
+
     exit;
 }
 
