@@ -11,18 +11,16 @@ BEGIN {
             '/auth/login' => {
                 'module'=> 'Routes::Auth',
                 'method' => 'login'
+            },
+            '/customers' => {
+                'module'=> 'Routes::Customers',
+                'method' => 'store'
             }
         },
         'GET' => {
             '/customers' => {
                 'module'=> 'Routes::Customers',
                 'method' => 'list'
-            }
-        },
-        'POST' => {
-            '/customers' => {
-                'module'=> 'Routes::Customers',
-                'method' => 'store'
             }
         }
     );
