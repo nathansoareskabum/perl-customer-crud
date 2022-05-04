@@ -7,15 +7,27 @@ use Cwd;
 
 BEGIN { 
     our %ROUTES = (
-        'GET' => {
+        'POST' => {
             '/auth/login' => {
                 'module'=> 'Routes::Auth',
                 'method' => 'login'
             }
+        },
+        'GET' => {
+            '/customers' => {
+                'module'=> 'Routes::Customers',
+                'method' => 'list'
+            }
+        },
+        'POST' => {
+            '/customers' => {
+                'module'=> 'Routes::Customers',
+                'method' => 'store'
+            }
         }
     );
 
-    push @INC, '/app';
+    push @INC, '/app/src';
 }
 
 use Utils::Response;
@@ -25,11 +37,6 @@ my $json = JSON->new();
 my $response = Utils::Response->new(cgi => $cgi, json => $json);
 
 eval {
-    my $output = {
-        code => 404,
-        message => 'Page not found'
-    };
-
     my $path = (split('\?', $cgi->request_uri()))[0];
     
     if (defined $ROUTES{$cgi->request_method()}{$path}) {
@@ -38,18 +45,24 @@ eval {
         my $method = $ROUTES{$cgi->request_method()}{$path}{'method'};
         
         (my $file = $module) =~ s|::|/|g;
-        require '../' . $file . '.pm';
+        require '../src/' . $file . '.pm';
         
         $controller = $module->new(response => $response);
         
         $controller->$method();
     }
     
-    $response->to_json($output->{code}, $output->{message});
+    $response->to_json(404, {
+        code => 404,
+        message => 'Page not found'
+    });
 } or do {
-    my $error = $@ || 'Unknown failure';
+    my $error = $@ || 'Internal server error';
 
-    $response->to_json(500, $error);
+    $response->to_json(500, {
+        code => 500,
+        message => $error
+    });
 };
 
 __END__

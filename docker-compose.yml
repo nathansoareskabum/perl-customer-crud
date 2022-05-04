@@ -1,5 +1,11 @@
 version: "3.9"
 services:
+  mysql:
+    image: mysql:5.7
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: secret
+      MYSQL_DATABASE: test
   apache:
     build: .
     ports:
@@ -7,3 +13,13 @@ services:
     volumes:
       - ./app:/app
       - ./app/app_vhost.conf:/vhosts/app_vhost.conf:ro
+    depends_on: 
+      - mysql
+    links:
+      - mysql
+    environment:
+      DATABASE_HOST: mysql
+      DATABASE_PORT: 3306
+      DATABASE_NAME: test
+      DATABASE_USER: root
+      DATABASE_PASS: secret

@@ -10,7 +10,9 @@ has 'response' => (
 sub login {
     my $self = shift;
 
-    $self->response->to_json(301, "Login");
+    $self->response->to_json(200, {
+        message => "Login Route"
+    });
 }
 
 1;

@@ -15,17 +15,14 @@ has 'json' => (
 sub to_json {
     my $self = shift;
 
-    my($code, $message) = @_;
+    my($code, $obj) = @_;
 
     print $self->cgi->header(
         -type => 'application/json',
         -status => $code
     );
 
-    print $self->json->encode({
-        code => $code,
-        message => $message
-    }); 
+    print $self->json->encode($obj); 
 
     exit;
 }
