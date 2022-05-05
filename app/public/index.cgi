@@ -2,8 +2,6 @@
 use v5.10.1;
 use CGI;
 use JSON;
-use Data::Dumper;
-use Cwd;
 
 BEGIN { 
     our %ROUTES = (
@@ -22,7 +20,7 @@ BEGIN {
                 'module'=> 'Controllers::CustomersController',
                 'method' => 'list'
             },
-            '/test' => {
+            '/customers/:id' => {
                 'module'=> 'Controllers::CustomersController',
                 'method' => 'test'
             }

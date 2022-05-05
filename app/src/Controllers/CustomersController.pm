@@ -14,7 +14,7 @@ sub list {
 
     my $output = Models::Customer::fetch_all();
 
-    $self->response->to_json(301, $output);
+    $self->response->to_json(200, $output);
 }
 
 sub store {
@@ -27,7 +27,7 @@ sub test {
 
     $self->response->to_json(301, {
         'test' => 'ok',
-        'backoffice' => '00'
+        'asdsadasd' => '00'
     });
 }
 
