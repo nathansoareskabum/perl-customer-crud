@@ -5,26 +5,21 @@ use Library::DB;
 sub fetch_all {
     my $db = Library::DB->get_instance();
 
-    my $res = $db->query("SELECT * FROM `customers`;");
+    my $result = $db->query("SELECT * FROM `customers`;");
 
-    my @output = ();
+    my $output = $result->fetchall_arrayref({});
 
-    my ($id, $name, $birth_date, $cpf, $rg, $phone);
+    $result->finish();
 
-    while(($id, $name, $birth_date, $cpf, $rg, $phone) = $res->fetchrow()){
-        push @output, {
-            id => $id,
-            name => $name,
-            birth_date => $birth_date,
-            cpf => $cpf,
-            rg => $rg,
-            phone => $phone
-        };
-    }
+    return $output;
+}
 
-    $res->finish();
+sub create {
+    my ($self, $name, $birth_date, $cpf, $rg, $phone) = (@_);
 
-    return @output;
+    my $db = Library::DB->get_instance();
+
+    my $result = $db->query("INSERT INTO `customers` (`name`, `birth_date`, `cpf`, `rg`, `phone`) VALUES (?, ?, ?, ?, ?);");
 }
 
 1;

@@ -21,6 +21,10 @@ BEGIN {
             '/customers' => {
                 'module'=> 'Controllers::CustomersController',
                 'method' => 'list'
+            },
+            '/test' => {
+                'module'=> 'Controllers::CustomersController',
+                'method' => 'test'
             }
         }
     );
@@ -39,8 +43,10 @@ eval {
     
     if (defined $ROUTES{$cgi->request_method()}{$path}) {
         
-        my $module = $ROUTES{$cgi->request_method()}{$path}{'module'};
-        my $method = $ROUTES{$cgi->request_method()}{$path}{'method'};
+        my $route = $ROUTES{$cgi->request_method()}{$path};
+
+        my $module = $route->{'module'};
+        my $method = $route->{'method'};
         
         (my $file = $module) =~ s|::|/|g;
         require '../src/' . $file . '.pm';

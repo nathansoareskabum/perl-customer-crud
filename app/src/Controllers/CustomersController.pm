@@ -12,9 +12,23 @@ has 'response' => (
 sub list {
     my $self = shift;
 
-    my @output = Models::Customer::fetch_all();
+    my $output = Models::Customer::fetch_all();
 
-    $self->response->to_json(301, \@output);
+    $self->response->to_json(301, $output);
+}
+
+sub store {
+    
+    # $self->response->to_json(301, \@output);
+}
+
+sub test {
+    my $self = shift;
+
+    $self->response->to_json(301, {
+        'test' => 'ok',
+        'backoffice' => '00'
+    });
 }
 
 1;
